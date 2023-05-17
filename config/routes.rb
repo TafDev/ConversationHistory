@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get 'comments/create'
+  resources :projects, only: %i[index show] do
+    resources :comments, only: :create
+    patch 'change_status', to: 'projects#change_status'
+  end
 end
