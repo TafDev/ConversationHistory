@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>Project Details</h1>
+
+  <%= link_to 'Back to Projects', projects_path, class: 'btn btn-primary' %>
+
+  <div class="project-details">
+    <p><strong>Title:</strong> <%= @project.title %></p>
+    <p><strong>Status:</strong> <%= @project.status %></p>
+  </div>
+
+  <h2>Edit Status</h2>
+  <%= form_with(model: @project, url: project_path(@project), method: :patch, local: true) do |form| %>
+    <div class="form-group">
+      <%= form.label :status %>
+      <%= form.select :status, options_for_select(Project.statuses.keys, @project.status), class: 'form-control' %>
+    </div>
+    <%= form.submit 'Update Status', class: 'btn btn-primary' %>
+  <% end %>
+
+  <h2>Add Comment</h2>
+  <%= form_with(model: Comment.new, url: project_comments_path(@project), local: true) do |form| %>
+    <div class="form-group">
+      <%= form.label :username %>
+      <%= form.text_field :username, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :body %>
+      <%= form.text_area :body, class: 'form-control' %>
+    </div>
+    <%= form.submit 'Add Comment', class: 'btn btn-primary' %>
+  <% end %>
+
+  <h2>Project History</h2>
+  <% @project.project_histories.order(created_at: :desc).each do |history| %>
+    <div class="project-history">
+      <p><strong>Event:</strong> <%= history.event_type %></p>
+      <p><strong>Details:</strong> <%= history.event_body %></p>
+      <p><strong>Timestamp:</strong> <%= history.created_at %></p>
+    </div>
+  <% end %>
+</div>
