@@ -4,10 +4,28 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find_by(id: params[:id])
+    return project unless project.nil?
 
-    return @project unless @project.nil?
+    redirect_to projects_path, alert: t('projects.not_found')
+  end
 
-    redirect_to projects_path, alert: t('projects.project_not_found')
+  def update
+    if project.update(project_params)
+      project.project_histories.create!(event_type: 'status_change', event_body: "status changed to #{params[:project][:status]}")
+      flash[:success] = t('projects.updated')
+    else
+      flash.now[:error] = t('projects.failed')
+    end
+    redirect_to project
+  end
+
+  private
+
+  def project
+    @project ||= Project.find_by(id: params[:id])
+  end
+
+  def project_params
+    params.require(:project).permit(:status)
   end
 end
