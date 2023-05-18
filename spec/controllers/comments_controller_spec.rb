@@ -13,8 +13,10 @@ RSpec.describe CommentsController do
     end
 
     context 'with valid parameters' do
-      it 'creates a new comment' do
-        expect { create_comment }.to change(Comment, :count).by(1)
+      it 'creates a new comment and project history entry' do
+        expect {
+          post :create, params: { project_id: project.id, comment: { body: 'Test comment', username: 'JohnDoe' } }
+        }.to change(Comment, :count).by(1).and change(ProjectHistory, :count).by(1)
       end
 
       it 'redirects to the project show page' do

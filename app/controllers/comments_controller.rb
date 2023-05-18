@@ -1,16 +1,17 @@
 class CommentsController < ApplicationController
   def create
     if project.nil?
-      redirect_to projects_path, alert: t('projects.project_not_found')
+      redirect_to projects_path, alert: t('projects.not_found')
       return
     end
 
     @comment = project.comments.build(comment_params)
 
     if @comment.save
-      redirect_to project, notice: t('comments.comment_added')
+      project.project_histories.create!(event_type: 'comment', event_body: "#{params[:comment][:username]} said: #{params[:comment][:body]}")
+      redirect_to project, notice: t('comments.added')
     else
-      redirect_to project, alert: t('comments.comment_failed')
+      redirect_to project, alert: t('comments.failed')
     end
   end
 

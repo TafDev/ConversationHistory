@@ -31,7 +31,9 @@
 
 en:
   projects:
-    project_not_found: 'Project not found.'
+    not_found: 'Project not found.'
+    updated: 'Project updated successfully'
+    failed: 'Failed to update project'
   comments:
-    comment_added: 'Comment added successfully.'
-    comment_failed: 'Failed to add comment.'
+    added: 'Comment added successfully.'
+    failed: 'Failed to add comment.'
