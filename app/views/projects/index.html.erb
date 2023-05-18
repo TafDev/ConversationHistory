@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Projects</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= link_to project.title, project_path(project) %></td>
+        <td><%= project.status %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
