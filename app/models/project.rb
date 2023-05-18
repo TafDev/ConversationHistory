@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
   has_many :comments, dependent: :destroy
+  has_many :project_histories
 
   enum status: {
     not_started: 'not_started',
