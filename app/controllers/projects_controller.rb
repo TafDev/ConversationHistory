@@ -11,7 +11,8 @@ class ProjectsController < ApplicationController
 
   def update
     if project.update(project_params)
-      project.project_histories.create!(event_type: 'status_change', event_body: "status changed to #{params[:project][:status]}")
+      project.project_histories.create!(event_type: 'status_change',
+                                        event_body: "status changed to #{params[:project][:status]}")
       flash[:success] = t('projects.updated')
     else
       flash.now[:error] = t('projects.failed')

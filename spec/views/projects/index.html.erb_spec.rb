@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'projects/index', type: :view do
+RSpec.describe 'projects/index' do
   before do
     assign(:projects, [
              create(:project, title: 'Project 1', status: 'in_progress'),
@@ -8,12 +8,12 @@ RSpec.describe 'projects/index', type: :view do
            ])
   end
 
-  it 'displays the list of projects', :aggregate_failures do
+  it 'displays the list of projects', :aggregate_failures do # rubocop:disable Metrics/ExampleLength
     render
 
     expect(rendered).to have_selector('h1', text: 'Projects')
 
-    expect(rendered).to have_selector('table.table.table-striped') do |table|
+    expect(rendered).to have_table(class: 'table') do |table|
       expect(table).to have_selector('thead') do |thead|
         expect(thead).to have_selector('th', text: 'Title')
         expect(thead).to have_selector('th', text: 'Status')

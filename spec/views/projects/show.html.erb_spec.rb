@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'projects/show', type: :view do
+RSpec.describe 'projects/show' do
   let(:project) { create(:project) }
 
   before do
@@ -26,7 +26,7 @@ RSpec.describe 'projects/show', type: :view do
     expect(rendered).to have_button('Add Comment')
   end
 
-  it 'renders the project history', :aggregate_failures do
+  it 'renders the project history', :aggregate_failures do # rubocop:disable Metrics/ExampleLength
     expect(rendered).to have_content('Project History')
 
     project.project_histories.each do |history|

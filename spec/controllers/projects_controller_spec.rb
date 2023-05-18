@@ -10,7 +10,7 @@ RSpec.describe ProjectsController do
   end
 
   describe 'GET #show' do
-    let(:project) { create :project }
+    let(:project) { create(:project) }
 
     it 'returns a success response' do
       get :show, params: { id: project.id }
@@ -22,7 +22,7 @@ RSpec.describe ProjectsController do
       it 'returns an error', :aggregate_failures do
         get :show, params: { id: 'invalid' }
 
-        expect(response).to have_http_status 302
+        expect(response).to have_http_status :found
         expect(flash[:alert]).to eq('Project not found.')
       end
     end

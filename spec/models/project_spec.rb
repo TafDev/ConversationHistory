@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Project do
-  it { should have_many(:comments) }
+  it { is_expected.to have_many(:comments) }
 
   describe 'validations' do
-    it { should validate_presence_of(:title) }
-    it { should validate_presence_of(:status) }
+    it { is_expected.to validate_presence_of(:title) }
+    it { is_expected.to validate_presence_of(:status) }
   end
 
   describe 'when status is updated' do
-    let(:project) { create :project }
+    let(:project) { create(:project) }
 
     context 'when status is valid' do
       %w[not_started in_progress completed].each do |new_status|
