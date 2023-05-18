@@ -1,6 +1,6 @@
 # Getting Started
 
-To get the app running follow these steps after cloning by entering these commands into your terminal
+To get the app running locally follow these steps after cloning by entering these commands into your terminal
 - `bundle`
 - `rails db:create`
 - `rails db:migrate`
@@ -9,6 +9,7 @@ To get the app running follow these steps after cloning by entering these comman
 - visit `http://localhost:3000/projects` to see the list of available projects
 - click on any project to see its history, some of it has been populated but you can add some more
 
+Visit https://conversation-history.herokuapp.com/projects to access the app the online
 ### Run tests
 
 Make sure you have run the bundler the follow these steps:
@@ -18,13 +19,13 @@ Make sure you have run the bundler the follow these steps:
 
 ### Questions I would have asked:
 
-q: should the conversation history follow some type of order\
-a: yes, preferably we want to see the newer information first\
-q: do we want to know who wrote the comment?\
-a: having a username or some type of identifier will make the history more meaningful\
-q: do we care to see the timestamp? if so do we have a preferred format?\ 
-a: having a timestamp will be useful as it allows to know when the event occurred\
-q: will we need database indexing?\ 
+q: should the conversation history follow some type of order  
+a: Yes, preferably we want to see the newer information first  
+q: do we want to know who wrote the comment?  
+a: having a username or some type of identifier will make the history more meaningful  
+q: do we care to see the timestamp? if so do we have a preferred format?  
+a: having a timestamp will be useful as it allows to know when the event occurred  
+q: will we need database indexing?  
 a: possibly but we can always add indexing when we feel we need it as there is no obvious case for it at the moment
 
 ### Limitations
@@ -43,6 +44,8 @@ a: possibly but we can always add indexing when we feel we need it as there is n
 - Mocking where necessary in specs
 - The front end could use more styling
 - Introducing action cable to make the user experience even better
+- We could also add UUIDs as they are more secure
+- We can add decorators so that status is displayed in a human readable way.
 
 
 
