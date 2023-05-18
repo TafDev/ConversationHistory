@@ -30,4 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  projects:
+    project_not_found: 'Project not found.'
+  comments:
+    comment_added: 'Comment added successfully.'
+    comment_failed: 'Failed to add comment.'
