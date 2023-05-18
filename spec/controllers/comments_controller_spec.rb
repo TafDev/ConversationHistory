@@ -4,15 +4,15 @@ RSpec.describe CommentsController do
   describe 'POST #create' do
     let(:project) { create :project }
     let(:comment) { Faker::Fantasy::Tolkien.poem }
+    let(:project_id) { project.id }
+    let(:create_comment) do
+      post :create, params: {
+        project_id: project_id,
+        comment: { body: comment, username: Faker::Fantasy::Tolkien.character }
+      }
+    end
 
     context 'with valid parameters' do
-      let(:create_comment) do
-        post :create, params: {
-          project_id: project.id,
-          comment: { body: comment, username: Faker::Fantasy::Tolkien.character }
-        }
-      end
-
       it 'creates a new comment' do
         expect { create_comment }.to change(Comment, :count).by(1)
       end
@@ -24,15 +24,26 @@ RSpec.describe CommentsController do
       end
     end
 
+    context 'with invalid project_id' do
+      let(:project_id) { 'invalid' }
+
+      it 'returns an error', :aggregate_failures do
+        create_comment
+
+        expect(response).to have_http_status 302
+        expect(flash[:alert]).to eq('Project not found.')
+      end
+    end
+
     context 'with invalid parameters' do
       it 'does not create a new comment' do
         expect do
-          post :create, params: { project_id: project.id, comment: { body: '' } }
+          post :create, params: { project_id: project_id, comment: { body: '' } }
         end.not_to change(Comment, :count)
       end
 
       it 'redirects to the project show page with an alert', :aggregate_failures do
-        post :create, params: { project_id: project.id, comment: { body: '' } }
+        post :create, params: { project_id: project_id, comment: { body: '' } }
 
         expect(response).to redirect_to(project)
         expect(flash[:alert]).to eq 'Failed to add comment.'

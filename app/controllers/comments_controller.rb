@@ -1,6 +1,10 @@
 class CommentsController < ApplicationController
   def create
-    @project = Project.find(params[:project_id])
+    if @project.nil?
+      redirect_to projects_path, alert: t('projects.project_not_found')
+      return
+    end
+
     @comment = @project.comments.build(comment_params)
 
     if @comment.save
